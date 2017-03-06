@@ -1,0 +1,3 @@
+[submodule "Grip/external/glm"]
+	path = Grip/external/glm
+	url = https://github.com/g-truc/glm
