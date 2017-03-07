@@ -629,7 +629,7 @@ void GamePadDirectInput::Update(double deltaTime)
 	{
 		m_States[1][i] = m_States[0][i];
 
-		bool pressed = false;
+		std::uint8_t pressed = 0x00;
 
 		if (i < GamePadButton::GamePadButton_Num)
 		{
