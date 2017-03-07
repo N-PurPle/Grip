@@ -674,38 +674,75 @@ bool GamePadDirectInput::IsAnyPressed() const
 
 bool GamePadDirectInput::IsPressed(GamePadButton button) const
 {
-	if (button >= GamePadButton_Num) { return false; }
+	if (button >= GamePadButton::GamePadButton_Num) { return false; }
 	return m_States[0][button] == InputState::InputState_Pressed;
+}
+
+
+bool GamePadDirectInput::IsPressed(POV pov) const
+{
+	if (pov >= POV::POV_Num) { return false; }
+	return m_States[0][GamePadButton::GamePadButton_Num + pov] == InputState::InputState_Pressed;
 }
 
 
 bool GamePadDirectInput::IsReleased(GamePadButton button) const
 {
-	if (button >= GamePadButton_Num) { return false; }
+	if (button >= GamePadButton::GamePadButton_Num) { return false; }
 	return m_States[0][button] == InputState::InputState_Released;
+}
+
+
+bool GamePadDirectInput::IsReleased(POV pov) const
+{
+	if (pov >= POV::POV_Num) { return false; }
+	return m_States[0][GamePadButton::GamePadButton_Num + pov] == InputState::InputState_Released;
 }
 
 
 bool GamePadDirectInput::IsFirstPressed(GamePadButton button) const
 {
-	if (button >= GamePadButton_Num) { return false; }
+	if (button >= GamePadButton::GamePadButton_Num) { return false; }
 	return m_States[0][button] == InputState::InputState_Pressed &&
 		m_States[1][button] == InputState::InputState_Released;
 }
 
 
+bool GamePadDirectInput::IsFirstPressed(POV pov) const
+{
+	if (pov >= POV::POV_Num) { return false; }
+	return m_States[0][GamePadButton::GamePadButton_Num + pov] == InputState::InputState_Pressed &&
+		m_States[1][GamePadButton::GamePadButton_Num + pov] == InputState::InputState_Released;
+}
+
+
 bool GamePadDirectInput::IsFirstReleased(GamePadButton button) const
 {
-	if (button >= GamePadButton_Num) { return false; }
+	if (button >= GamePadButton::GamePadButton_Num) { return false; }
 	return m_States[0][button] == InputState::InputState_Released &&
 		m_States[1][button] == InputState::InputState_Pressed;
 }
 
 
+bool GamePadDirectInput::IsFirstReleased(POV pov) const
+{
+	if (pov >= POV::POV_Num) { return false; }
+	return m_States[0][GamePadButton::GamePadButton_Num + pov] == InputState::InputState_Released &&
+		m_States[1][GamePadButton::GamePadButton_Num + pov] == InputState::InputState_Pressed;
+}
+
+
 double GamePadDirectInput::GetDurationPressed(GamePadButton button) const
 {
-	if (button >= GamePadButton_Num) { return 0.0; }
+	if (button >= GamePadButton::GamePadButton_Num) { return 0.0; }
 	return m_PressedDurations[button];
+}
+
+
+double GamePadDirectInput::GetDurationPressed(POV pov) const
+{
+	if (pov >= POV::POV_Num) { return 0.0; }
+	return m_PressedDurations[GamePadButton::GamePadButton_Num + pov];
 }
 
 
