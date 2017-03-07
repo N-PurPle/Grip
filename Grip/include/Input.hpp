@@ -157,24 +157,39 @@ enum MouseAxis : std::uint8_t
 struct IKeyboard
 {
 	virtual ~IKeyboard() = default;
+
 	virtual void Update(double deltaTime) = 0;
+
 	virtual bool IsAnyPressed() const = 0;
+
 	virtual bool IsPressed(Key key) const = 0;
+
 	virtual bool IsReleased(Key key) const = 0;
+
 	virtual bool IsFirstPressed(Key key) const = 0;
+
 	virtual bool IsFirstReleased(Key key) const = 0;
+
 	virtual double GetDurationPressed(Key key) const = 0;
 };
 struct IMouse
 {
 	virtual ~IMouse() = default;
+
 	virtual void Update(double deltaTime) = 0;
+
 	virtual bool IsAnyPressed() const = 0;
+
 	virtual bool IsPressed(MouseButton button) const = 0;
+
 	virtual bool IsReleased(MouseButton button) const = 0;
+
 	virtual bool IsFirstPressed(MouseButton button) const = 0;
+
 	virtual bool IsFirstReleased(MouseButton button) const = 0;
+
 	virtual double GetDurationPressed(MouseButton button) const = 0;
+
 	virtual std::int32_t GetAxisValue(MouseAxis axis) const = 0;
 };
 enum AnalogInput : std::uint8_t
@@ -187,24 +202,73 @@ enum AnalogInput : std::uint8_t
 	AnalogInput_RightTrigger,
 	AnalogInput_Num,
 };
+enum GamePadButton : std::uint8_t
+{
+	GamePadButton_0 = 0,
+	GamePadButton_1,
+	GamePadButton_2,
+	GamePadButton_3,
+	GamePadButton_4,
+	GamePadButton_5,
+	GamePadButton_6,
+	GamePadButton_7,
+	GamePadButton_8,
+	GamePadButton_9,
+	GamePadButton_10,
+	GamePadButton_11,
+	GamePadButton_12,
+	GamePadButton_13,
+	GamePadButton_14,
+	GamePadButton_Num,
+};
+enum POV : std::uint8_t
+{
+	POV_0 = 0,
+	POV_1,
+	POV_2,
+	POV_3,
+	POV_4,
+	POV_5,
+	POV_6,
+	POV_7,
+	POV_8,
+	POV_Num
+};
 struct IGamePad
 {
 	virtual ~IGamePad() = default;
+
 	virtual void Update(double deltaTime) = 0;
+
 	virtual bool IsAnyPressed() const = 0;
-	virtual bool IsPressed(std::uint8_t index) const = 0;
-	virtual bool IsReleased(std::uint8_t index) const = 0;
-	virtual bool IsFirstPressed(std::uint8_t index) const = 0;
-	virtual bool IsFirstReleased(std::uint8_t index) const = 0;
-	virtual double GetDurationPressed(std::uint8_t index) const = 0;
+
+	virtual bool IsPressed(GamePadButton button) const = 0;
+	virtual bool IsPressed(POV pov) const = 0;
+
+	virtual bool IsReleased(GamePadButton button) const = 0;
+	virtual bool IsReleased(POV pov) const = 0;
+
+	virtual bool IsFirstPressed(GamePadButton button) const = 0;
+	virtual bool IsFirstPressed(POV pov) const = 0;
+
+	virtual bool IsFirstReleased(GamePadButton button) const = 0;
+	virtual bool IsFirstReleased(POV pov) const = 0;
+
+	virtual double GetDurationPressed(GamePadButton button) const = 0;
+	virtual double GetDurationPressed(POV pov) const = 0;
+
 	virtual double GetStickValue(AnalogInput analog) const = 0;
 };
 struct IInput
 {
 	virtual ~IInput() = default;
+
 	virtual void Update(double deltaTime) = 0;
+
 	virtual IKeyboard* GetKeyboard(std::uint8_t index) = 0;
+
 	virtual IMouse*    GetMouse(std::uint8_t index) = 0;
+
 	virtual IGamePad*  GetJoyStick(std::uint8_t index) = 0;
 };
 

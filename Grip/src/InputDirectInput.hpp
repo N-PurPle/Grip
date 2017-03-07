@@ -114,23 +114,28 @@ public:
 
 	bool IsAnyPressed() const override;
 
-	bool IsPressed(std::uint8_t index) const override;
+	bool IsPressed(GamePadButton button) const override;
+	bool IsPressed(POV pov) const override;
 
-	bool IsReleased(std::uint8_t index) const override;
+	bool IsReleased(GamePadButton button) const override;
+	bool IsReleased(POV pov) const override;
 
-	bool IsFirstPressed(std::uint8_t index) const override;
+	bool IsFirstPressed(GamePadButton button) const override;
+	bool IsFirstPressed(POV pov) const override;
 
-	bool IsFirstReleased(std::uint8_t index) const override;
+	bool IsFirstReleased(GamePadButton button) const override;
+	bool IsFirstReleased(POV pov) const override;
 
-	double GetDurationPressed(std::uint8_t index) const override;
+	double GetDurationPressed(GamePadButton button) const override;
+	double GetDurationPressed(POV pov) const override;
 
 	double GetStickValue(AnalogInput analog) const override;
 
 private:
 	LPDIRECTINPUTDEVICE8 m_pDevice;
 	double               m_Analogs[AnalogInput::AnalogInput_Num]; // -1.0 ~ 1.0
-	InputState           m_States[2][15];
-	double               m_PressedDurations[15];
+	InputState           m_States[2][GamePadButton::GamePadButton_Num + POV::POV_Num];
+	double               m_PressedDurations[GamePadButton::GamePadButton_Num + POV::POV_Num];
 };
 
 

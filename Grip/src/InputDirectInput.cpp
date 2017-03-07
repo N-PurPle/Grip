@@ -625,11 +625,30 @@ void GamePadDirectInput::Update(double deltaTime)
 	m_Analogs[AnalogInput::AnalogInput_LeftTrigger] = static_cast<double>(joystate.lRy) / 1000.0;
 	m_Analogs[AnalogInput::AnalogInput_RightTrigger] = static_cast<double>(joystate.lRz) / 1000.0;
 
-	for (int i = 0; i < 15; ++i)
+	for (std::uint8_t i = 0; i < GamePadButton::GamePadButton_Num + POV::POV_Num; ++i)
 	{
 		m_States[1][i] = m_States[0][i];
 
-		if (joystate.rgbButtons[i] & 0x80)
+		bool pressed = false;
+
+		if (i < GamePadButton::GamePadButton_Num)
+		{
+			pressed = joystate.rgbButtons[i] & 0x80;
+		}
+		else
+		{
+			int direction = (joystate.rgdwPOV[0] + 2200) % 36000 / 4500;
+			const std::uint8_t pov[] = { 0x01, 0x09, 0x08, 0x0A, 0x02, 0x06, 0x04, 0x05, 0x00 };
+			
+			if (LOWORD(joystate.rgdwPOV[0]) == 0xFFFF)
+			{
+				// 何も入力されていない状態
+				direction = 8;
+			}
+			pressed = pov[direction] & (0x01 << (i - GamePadButton::GamePadButton_Num));
+		}
+
+		if (pressed)
 		{
 			m_States[0][i] = InputState::InputState_Pressed;
 			m_PressedDurations[i] += deltaTime;
@@ -640,8 +659,6 @@ void GamePadDirectInput::Update(double deltaTime)
 			m_PressedDurations[i] = 0.0;
 		}
 	}
-
-	// TODO. POVスイッチの更新
 }
 
 
@@ -655,40 +672,40 @@ bool GamePadDirectInput::IsAnyPressed() const
 }
 
 
-bool GamePadDirectInput::IsPressed(std::uint8_t index) const
+bool GamePadDirectInput::IsPressed(GamePadButton button) const
 {
-	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::InputState_Pressed;
+	if (button >= GamePadButton_Num) { return false; }
+	return m_States[0][button] == InputState::InputState_Pressed;
 }
 
 
-bool GamePadDirectInput::IsReleased(std::uint8_t index) const
+bool GamePadDirectInput::IsReleased(GamePadButton button) const
 {
-	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::InputState_Released;
+	if (button >= GamePadButton_Num) { return false; }
+	return m_States[0][button] == InputState::InputState_Released;
 }
 
 
-bool GamePadDirectInput::IsFirstPressed(std::uint8_t index) const
+bool GamePadDirectInput::IsFirstPressed(GamePadButton button) const
 {
-	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::InputState_Pressed &&
-		m_States[1][index] == InputState::InputState_Released;
+	if (button >= GamePadButton_Num) { return false; }
+	return m_States[0][button] == InputState::InputState_Pressed &&
+		m_States[1][button] == InputState::InputState_Released;
 }
 
 
-bool GamePadDirectInput::IsFirstReleased(std::uint8_t index) const
+bool GamePadDirectInput::IsFirstReleased(GamePadButton button) const
 {
-	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::InputState_Released &&
-		m_States[1][index] == InputState::InputState_Pressed;
+	if (button >= GamePadButton_Num) { return false; }
+	return m_States[0][button] == InputState::InputState_Released &&
+		m_States[1][button] == InputState::InputState_Pressed;
 }
 
 
-double GamePadDirectInput::GetDurationPressed(std::uint8_t index) const
+double GamePadDirectInput::GetDurationPressed(GamePadButton button) const
 {
-	if (index >= 15) { return 0.0; }
-	return m_PressedDurations[index];
+	if (button >= GamePadButton_Num) { return 0.0; }
+	return m_PressedDurations[button];
 }
 
 
