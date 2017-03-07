@@ -72,10 +72,10 @@ HWND Initialize(HINSTANCE hInstance, int nCmdShow, WNDPROC lpWndProc)
 	{
 		g_hIcon = reinterpret_cast<HICON>(::LoadImage(
 			hInstance,
-			_T(""),
+			_T("GRIPICON"),
 			IMAGE_ICON,
-			0,
-			0,
+			256,
+			256,
 			LR_DEFAULTSIZE | LR_SHARED));
 	}
 
@@ -83,7 +83,7 @@ HWND Initialize(HINSTANCE hInstance, int nCmdShow, WNDPROC lpWndProc)
 	{
 		g_hIconSmall = reinterpret_cast<HICON>(::LoadImage(
 			hInstance,
-			_T(""),
+			_T("GRIPICON"),
 			IMAGE_ICON,
 			16,
 			16,
@@ -163,9 +163,11 @@ HWND Initialize(HINSTANCE hInstance, int nCmdShow, WNDPROC lpWndProc)
 		}
 	}
 
-	UpdateWindow(g_hWnd);             //表示を初期化
-	SetFocus(g_hWnd);                 //フォーカスを設定
+	::UpdateWindow(g_hWnd);             //表示を初期化
+	::SetFocus(g_hWnd);                 //フォーカスを設定
 
+	// 常に最前面に設定
+	//::SetWindowPos(g_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 	//::SetWindowLongPtr(g_hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 
 	return g_hWnd;
@@ -189,8 +191,7 @@ LRESULT APIENTRY WindowProcedure(
 }
 
 
-#include <d3d12.h>
-#include <dxgi1_5.h>
+
 int APIENTRY _tWinMain(
 	HINSTANCE hInstance,
 	HINSTANCE UNUSED(hPrevInstance),
@@ -204,13 +205,8 @@ int APIENTRY _tWinMain(
 	}
 
 	MSG msg = { 0 };
-
 	GameSample sample;
 	Grip::Framework framework(&sample, ::GetModuleHandle(nullptr), g_hWnd);
-	Grip::IInput* pInput = framework.GetInput();
-	Grip::IKeyboard* pKeyboard = pInput->GetKeyboard(0);
-	//Grip::IMouse* pMouse = pInput->GetMouse(0);
-
 	while (true)
 	{
 		while (::PeekMessage(&msg, hWnd, 0, 0, PM_NOREMOVE) != 0)
@@ -226,8 +222,7 @@ int APIENTRY _tWinMain(
 			framework.Draw();
 		}
 
-		if (pKeyboard && pKeyboard->IsFirstPressed(Grip::Key_Escape)) { break; }
-		//if (pMouse && pMouse->IsPressed(Grip::MouseButton_0)) { break; }
+		if (framework.IsExit()) { break; }
 	}
 
 	return 0;

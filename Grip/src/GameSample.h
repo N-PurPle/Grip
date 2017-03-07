@@ -9,14 +9,16 @@ class GameSample : public Grip::IGame
 public:
 	GameSample()
 		: m_pFramework(nullptr)
+		, m_pKeyboard(nullptr)
 	{}
 
 	void Startup(Grip::Framework* pFramework) override
 	{
 		m_pFramework = pFramework;
+		m_pKeyboard = m_pFramework->GetInput()->GetKeyboard(0);
 	}
 
-	void Term() override
+	void Shutdown() override
 	{
 		m_pFramework = nullptr;
 	}
@@ -42,8 +44,18 @@ public:
 
 	void RenderUI() override {}
 
+	bool IsExit() const override
+	{
+		if (m_pKeyboard && m_pKeyboard->IsFirstPressed(Grip::Key_Escape))
+		{
+			return true;
+		}
+		return false;
+	}
+
 private:
 	Grip::Framework* m_pFramework;
+	Grip::IKeyboard* m_pKeyboard;
 	std::uint32_t m_Counter;
 };
 

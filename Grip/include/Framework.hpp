@@ -6,8 +6,8 @@
 
 namespace Grip {
 
-class IGame;
-class IInput;
+struct IGame;
+struct IInput;
 class Framework
 {
 	typedef std::chrono::duration<double, std::milli>    MilliSeconds;
@@ -27,6 +27,7 @@ public:
 	std::uint32_t GetDrawFps() const { return m_drawFps; }
 	IInput* GetInput() { return m_pInput; }
 
+	bool IsExit() const;
 	bool Update();
 	void Draw();
 

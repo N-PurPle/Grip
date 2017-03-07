@@ -35,8 +35,14 @@ Framework::~Framework()
 {
 	if (m_pGame)
 	{
-		m_pGame->Term();
+		m_pGame->Shutdown();
 	}
+}
+
+
+bool Framework::IsExit() const
+{
+	return m_pGame && m_pGame->IsExit();
 }
 
 

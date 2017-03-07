@@ -247,7 +247,7 @@ KeyboardDirectInput::KeyboardDirectInput(LPDIRECTINPUTDEVICE8 pDevice, HWND hWnd
 {
 	for (int i = 0; i < Key::Key_Num; ++i)
 	{
-		m_States[0][i] = m_States[1][i] = InputState::Released;
+		m_States[0][i] = m_States[1][i] = InputState::InputState_Released;
 	}
 }
 
@@ -405,12 +405,12 @@ void KeyboardDirectInput::Update(double deltaTime)
 		if (s_KeyMapping[i] != 255 &&
 			keyBuffer[s_KeyMapping[i]] & 0x80)
 		{
-			m_States[0][i] = InputState::Pressed;
+			m_States[0][i] = InputState::InputState_Pressed;
 			m_PressedDurations[i] += deltaTime;
 		}
 		else
 		{
-			m_States[0][i] = InputState::Released;
+			m_States[0][i] = InputState::InputState_Released;
 			m_PressedDurations[i] = 0.0;
 		}
 	}
@@ -421,7 +421,7 @@ bool KeyboardDirectInput::IsAnyPressed() const
 {
 	for (int i = 0; i < Key::Key_Num; ++i)
 	{
-		if (m_States[0][i] == InputState::Pressed) { return true; }
+		if (m_States[0][i] == InputState::InputState_Pressed) { return true; }
 	}
 	return false;
 }
@@ -430,30 +430,30 @@ bool KeyboardDirectInput::IsAnyPressed() const
 bool KeyboardDirectInput::IsPressed(Key key) const
 {
 	if (key >= Key::Key_Num) { return false; }
-	return m_States[0][key] == InputState::Pressed;
+	return m_States[0][key] == InputState::InputState_Pressed;
 }
 
 
 bool KeyboardDirectInput::IsReleased(Key key) const
 {
 	if (key >= Key::Key_Num) { return false; }
-	return m_States[0][key] == InputState::Released;
+	return m_States[0][key] == InputState::InputState_Released;
 }
 
 
 bool KeyboardDirectInput::IsFirstPressed(Key key) const
 {
 	if (key >= Key::Key_Num) { return false; }
-	return m_States[0][key] == InputState::Pressed &&
-		m_States[1][key] == InputState::Released;
+	return m_States[0][key] == InputState::InputState_Pressed &&
+		m_States[1][key] == InputState::InputState_Released;
 }
 
 
 bool KeyboardDirectInput::IsFirstReleased(Key key) const
 {
 	if (key >= Key::Key_Num) { return false; }
-	return m_States[0][key] == InputState::Released &&
-		m_States[1][key] == InputState::Pressed;
+	return m_States[0][key] == InputState::InputState_Released &&
+		m_States[1][key] == InputState::InputState_Pressed;
 }
 
 
@@ -471,7 +471,7 @@ MouseDirectInput::MouseDirectInput(LPDIRECTINPUTDEVICE8 pDevice, HWND hWnd)
 {
 	for (int i = 0; i < MouseButton::MouseButton_Num; ++i)
 	{
-		m_States[0][i] = m_States[1][i] = InputState::Released;
+		m_States[0][i] = m_States[1][i] = InputState::InputState_Released;
 		m_PressedDurations[i] = 0.0;
 	}
 
@@ -514,12 +514,12 @@ void MouseDirectInput::Update(double deltaTime)
 
 		if (mousestate2.rgbButtons[i] & 0x80)
 		{
-			m_States[0][i] = InputState::Pressed;
+			m_States[0][i] = InputState::InputState_Pressed;
 			m_PressedDurations[i] += deltaTime;
 		}
 		else
 		{
-			m_States[0][i] = InputState::Released;
+			m_States[0][i] = InputState::InputState_Released;
 			m_PressedDurations[i] = 0.0;
 		}
 	}
@@ -530,7 +530,7 @@ bool MouseDirectInput::IsAnyPressed() const
 {
 	for (int i = 0; i < MouseButton::MouseButton_Num; ++i)
 	{
-		if (m_States[0][i] == InputState::Pressed) { return true; }
+		if (m_States[0][i] == InputState::InputState_Pressed) { return true; }
 	}
 	return false;
 }
@@ -539,30 +539,30 @@ bool MouseDirectInput::IsAnyPressed() const
 bool MouseDirectInput::IsPressed(MouseButton button) const
 {
 	if (button >= MouseButton::MouseButton_Num) { return false; }
-	return m_States[0][button] == InputState::Pressed;
+	return m_States[0][button] == InputState::InputState_Pressed;
 }
 
 
 bool MouseDirectInput::IsReleased(MouseButton button) const
 {
 	if (button >= MouseButton::MouseButton_Num) { return false; }
-	return m_States[0][button] == InputState::Released;
+	return m_States[0][button] == InputState::InputState_Released;
 }
 
 
 bool MouseDirectInput::IsFirstPressed(MouseButton button) const
 {
 	if (button >= MouseButton::MouseButton_Num) { return false; }
-	return m_States[0][button] == InputState::Pressed &&
-		m_States[1][button] == InputState::Released;
+	return m_States[0][button] == InputState::InputState_Pressed &&
+		m_States[1][button] == InputState::InputState_Released;
 }
 
 
 bool MouseDirectInput::IsFirstReleased(MouseButton button) const
 {
 	if (button >= MouseButton::MouseButton_Num) { return false; }
-	return m_States[0][button] == InputState::Released &&
-		m_States[1][button] == InputState::Pressed;
+	return m_States[0][button] == InputState::InputState_Released &&
+		m_States[1][button] == InputState::InputState_Pressed;
 }
 
 
@@ -586,7 +586,7 @@ GamePadDirectInput::GamePadDirectInput(LPDIRECTINPUTDEVICE8 pDevice)
 {
 	for (int i = 0; i < 15; ++i)
 	{
-		m_States[0][i] = m_States[1][i] = InputState::Released;
+		m_States[0][i] = m_States[1][i] = InputState::InputState_Released;
 		m_PressedDurations[i] = 0.0;
 	}
 
@@ -631,12 +631,12 @@ void GamePadDirectInput::Update(double deltaTime)
 
 		if (joystate.rgbButtons[i] & 0x80)
 		{
-			m_States[0][i] = InputState::Pressed;
+			m_States[0][i] = InputState::InputState_Pressed;
 			m_PressedDurations[i] += deltaTime;
 		}
 		else
 		{
-			m_States[0][i] = InputState::Released;
+			m_States[0][i] = InputState::InputState_Released;
 			m_PressedDurations[i] = 0.0;
 		}
 	}
@@ -649,7 +649,7 @@ bool GamePadDirectInput::IsAnyPressed() const
 {
 	for (int i = 0; i < 15; ++i)
 	{
-		if (m_States[0][i] == InputState::Pressed) { return true; }
+		if (m_States[0][i] == InputState::InputState_Pressed) { return true; }
 	}
 	return false;
 }
@@ -658,30 +658,30 @@ bool GamePadDirectInput::IsAnyPressed() const
 bool GamePadDirectInput::IsPressed(std::uint8_t index) const
 {
 	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::Pressed;
+	return m_States[0][index] == InputState::InputState_Pressed;
 }
 
 
 bool GamePadDirectInput::IsReleased(std::uint8_t index) const
 {
 	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::Released;
+	return m_States[0][index] == InputState::InputState_Released;
 }
 
 
 bool GamePadDirectInput::IsFirstPressed(std::uint8_t index) const
 {
 	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::Pressed &&
-		m_States[1][index] == InputState::Released;
+	return m_States[0][index] == InputState::InputState_Pressed &&
+		m_States[1][index] == InputState::InputState_Released;
 }
 
 
 bool GamePadDirectInput::IsFirstReleased(std::uint8_t index) const
 {
 	if (index >= 15) { return false; }
-	return m_States[0][index] == InputState::Released &&
-		m_States[1][index] == InputState::Pressed;
+	return m_States[0][index] == InputState::InputState_Released &&
+		m_States[1][index] == InputState::InputState_Pressed;
 }
 
 

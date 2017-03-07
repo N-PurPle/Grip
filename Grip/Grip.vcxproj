@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Allocator.hpp" />
     <ClInclude Include="include\Framework.hpp" />
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Grip.hpp" />
@@ -31,6 +32,9 @@
     <ClCompile Include="src\Framework.cpp" />
     <ClCompile Include="src\InputDirectInput.cpp" />
     <ClCompile Include="src\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource\resource.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5d27d773-18ef-4a3a-b9a0-b550e0f21b7e}</ProjectGuid>

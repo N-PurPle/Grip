@@ -8,10 +8,14 @@
     <ClInclude Include="include\Timer.hpp" />
     <ClInclude Include="src\GameSample.h" />
     <ClInclude Include="src\InputDirectInput.hpp" />
+    <ClInclude Include="include\Allocator.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework.cpp" />
     <ClCompile Include="src\InputDirectInput.cpp" />
     <ClCompile Include="src\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource\resource.rc" />
   </ItemGroup>
 </Project>

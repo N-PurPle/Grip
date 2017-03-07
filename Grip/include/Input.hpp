@@ -9,8 +9,8 @@ namespace Grip {
 
 enum InputState : bool
 {
-	Released = false,
-	Pressed  = true,
+	InputState_Released = false,
+	InputState_Pressed  = true,
 };
 
 
@@ -135,7 +135,8 @@ enum Key : std::uint8_t
 	Key_Num,
 };
 
-enum MouseButton {
+enum MouseButton : std::uint8_t
+{
 	MouseButton_0 = 0,
 	MouseButton_1,
 	MouseButton_2,
@@ -146,15 +147,15 @@ enum MouseButton {
 	MouseButton_7,
 	MouseButton_Num,
 };
-enum MouseAxis {
+enum MouseAxis : std::uint8_t
+{
 	MouseAxis_X = 0,
 	MouseAxis_Y,
 	MouseAxis_Scroll,
 	MouseAxis_Num,
 };
-class IKeyboard
+struct IKeyboard
 {
-public:
 	virtual ~IKeyboard() = default;
 	virtual void Update(double deltaTime) = 0;
 	virtual bool IsAnyPressed() const = 0;
@@ -164,9 +165,8 @@ public:
 	virtual bool IsFirstReleased(Key key) const = 0;
 	virtual double GetDurationPressed(Key key) const = 0;
 };
-class IMouse
+struct IMouse
 {
-public:
 	virtual ~IMouse() = default;
 	virtual void Update(double deltaTime) = 0;
 	virtual bool IsAnyPressed() const = 0;
@@ -177,7 +177,8 @@ public:
 	virtual double GetDurationPressed(MouseButton button) const = 0;
 	virtual std::int32_t GetAxisValue(MouseAxis axis) const = 0;
 };
-enum AnalogInput {
+enum AnalogInput : std::uint8_t
+{
 	AnalogInput_LeftThumbStickX = 0,
 	AnalogInput_LeftThumbStickY,
 	AnalogInput_RightThumbStickX,
@@ -186,9 +187,8 @@ enum AnalogInput {
 	AnalogInput_RightTrigger,
 	AnalogInput_Num,
 };
-class IGamePad
+struct IGamePad
 {
-public:
 	virtual ~IGamePad() = default;
 	virtual void Update(double deltaTime) = 0;
 	virtual bool IsAnyPressed() const = 0;
@@ -199,9 +199,9 @@ public:
 	virtual double GetDurationPressed(std::uint8_t index) const = 0;
 	virtual double GetStickValue(AnalogInput analog) const = 0;
 };
-class IInput
+struct IInput
 {
-public:
+	virtual ~IInput() = default;
 	virtual void Update(double deltaTime) = 0;
 	virtual IKeyboard* GetKeyboard(std::uint8_t index) = 0;
 	virtual IMouse*    GetMouse(std::uint8_t index) = 0;
