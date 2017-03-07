@@ -1,6 +1,12 @@
 ﻿#pragma once
 
 
+#define GRIP_GAME_ENTRY(game_class) \
+	Grip::IGame* Grip::CreateGame() \
+	{ \
+		return new game_class();\
+	}
+
 namespace Grip {
 
 class Framework;
@@ -14,6 +20,9 @@ struct IGame
 	virtual void RenderUI() = 0;
 	virtual bool IsExit() const = 0;
 };
+
+
+IGame* CreateGame();
 
 
 } // namespace Grip

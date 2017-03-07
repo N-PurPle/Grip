@@ -19,18 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Allocator.hpp" />
     <ClInclude Include="include\Framework.hpp" />
     <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\Graphics.hpp" />
     <ClInclude Include="include\Grip.hpp" />
     <ClInclude Include="include\Input.hpp" />
     <ClInclude Include="include\Timer.hpp" />
-    <ClInclude Include="src\GameSample.h" />
-    <ClInclude Include="src\InputDirectInput.hpp" />
+    <ClInclude Include="src\GameSample.hpp" />
+    <ClInclude Include="src\input\InputDirectInput.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework.cpp" />
-    <ClCompile Include="src\InputDirectInput.cpp" />
+    <ClCompile Include="src\GameSample.cpp" />
+    <ClCompile Include="src\input\InputDirectInput.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>

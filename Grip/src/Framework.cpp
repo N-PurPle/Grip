@@ -6,8 +6,9 @@
 namespace Grip {
 
 
-Framework::Framework(IGame* pGame, HINSTANCE hInstance, HWND hWnd)
-	: m_pGame(pGame)
+Framework::Framework(HINSTANCE hInstance, HWND hWnd)
+	: m_hWnd(hWnd)
+	, m_pGame(nullptr)
 	, m_pInput(nullptr)
 	, m_targetTimePoint()
 	, m_secondCounter()
@@ -24,6 +25,7 @@ Framework::Framework(IGame* pGame, HINSTANCE hInstance, HWND hWnd)
 	SetMaxFps(60);
 	m_pInput = CreateInput(hInstance, hWnd);
 
+	m_pGame = CreateGame();
 	if (m_pGame)
 	{
 		m_pGame->Startup(this);
@@ -36,6 +38,7 @@ Framework::~Framework()
 	if (m_pGame)
 	{
 		m_pGame->Shutdown();
+		delete m_pGame;
 	}
 }
 

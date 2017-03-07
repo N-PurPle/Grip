@@ -6,14 +6,15 @@
     <ClInclude Include="include\Grip.hpp" />
     <ClInclude Include="include\Input.hpp" />
     <ClInclude Include="include\Timer.hpp" />
-    <ClInclude Include="src\GameSample.h" />
-    <ClInclude Include="src\InputDirectInput.hpp" />
-    <ClInclude Include="include\Allocator.hpp" />
+    <ClInclude Include="src\input\InputDirectInput.hpp" />
+    <ClInclude Include="include\Graphics.hpp" />
+    <ClInclude Include="src\GameSample.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework.cpp" />
-    <ClCompile Include="src\InputDirectInput.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\input\InputDirectInput.cpp" />
+    <ClCompile Include="src\GameSample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc" />

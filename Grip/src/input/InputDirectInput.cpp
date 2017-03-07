@@ -269,17 +269,14 @@ void KeyboardDirectInput::BuildKeyMapping()
 	s_KeyMapping[Key::Key_Back] = DIK_BACK;
 	s_KeyMapping[Key::Key_Tab] = DIK_TAB;
 	s_KeyMapping[Key::Key_Return] = DIK_RETURN;
-
 	s_KeyMapping[Key::Key_LControl] = DIK_LCONTROL;
 	s_KeyMapping[Key::Key_LAlt] = DIK_LALT;
 	s_KeyMapping[Key::Key_LShift] = DIK_LSHIFT;
 	s_KeyMapping[Key::Key_LWin] = DIK_LWIN;
-
 	s_KeyMapping[Key::Key_RControl] = DIK_RCONTROL;
 	s_KeyMapping[Key::Key_RAlt] = DIK_RALT;
 	s_KeyMapping[Key::Key_RShift] = DIK_RSHIFT;
 	s_KeyMapping[Key::Key_RWin] = DIK_RWIN;
-
 	s_KeyMapping[Key::Key_Number1] = DIK_1;
 	s_KeyMapping[Key::Key_Number2] = DIK_2;
 	s_KeyMapping[Key::Key_Number3] = DIK_3;
@@ -290,7 +287,6 @@ void KeyboardDirectInput::BuildKeyMapping()
 	s_KeyMapping[Key::Key_Number8] = DIK_8;
 	s_KeyMapping[Key::Key_Number9] = DIK_9;
 	s_KeyMapping[Key::Key_Number0] = DIK_0;
-
 	s_KeyMapping[Key::Key_F1] = DIK_F1;
 	s_KeyMapping[Key::Key_F2] = DIK_F2;
 	s_KeyMapping[Key::Key_F3] = DIK_F3;
@@ -303,7 +299,6 @@ void KeyboardDirectInput::BuildKeyMapping()
 	s_KeyMapping[Key::Key_F10] = DIK_F10;
 	s_KeyMapping[Key::Key_F11] = DIK_F11;
 	s_KeyMapping[Key::Key_F12] = DIK_F12;
-
 	s_KeyMapping[Key::Key_A] = DIK_A;
 	s_KeyMapping[Key::Key_B] = DIK_B;
 	s_KeyMapping[Key::Key_C] = DIK_C;
@@ -330,7 +325,6 @@ void KeyboardDirectInput::BuildKeyMapping()
 	s_KeyMapping[Key::Key_X] = DIK_X;
 	s_KeyMapping[Key::Key_Y] = DIK_Y;
 	s_KeyMapping[Key::Key_Z] = DIK_Z;
-
 	s_KeyMapping[Key::Key_Numpad1] = DIK_NUMPAD1;
 	s_KeyMapping[Key::Key_Numpad2] = DIK_NUMPAD2;
 	s_KeyMapping[Key::Key_Numpad3] = DIK_NUMPAD3;
@@ -342,7 +336,6 @@ void KeyboardDirectInput::BuildKeyMapping()
 	s_KeyMapping[Key::Key_Numpad9] = DIK_NUMPAD9;
 	s_KeyMapping[Key::Key_Numpad0] = DIK_NUMPAD0;
 	s_KeyMapping[Key::Key_NumpadEnter] = DIK_NUMPADENTER;
-
 	s_KeyMapping[Key::Key_Minus] = DIK_MINUS;
 	s_KeyMapping[Key::Key_Equals] = DIK_EQUALS;
 	s_KeyMapping[Key::Key_Multiply] = DIK_MULTIPLY;
@@ -350,7 +343,6 @@ void KeyboardDirectInput::BuildKeyMapping()
 	s_KeyMapping[Key::Key_Add] = DIK_ADD;
 	s_KeyMapping[Key::Key_Divide] = DIK_DIVIDE;
 	s_KeyMapping[Key::Key_Decimal] = DIK_DECIMAL;
-
 	s_KeyMapping[Key::Key_LBracket] = DIK_LBRACKET;
 	s_KeyMapping[Key::Key_RBracket] = DIK_RBRACKET;
 	s_KeyMapping[Key::Key_Semicolon] = DIK_SEMICOLON;
@@ -360,16 +352,13 @@ void KeyboardDirectInput::BuildKeyMapping()
 	s_KeyMapping[Key::Key_Comma] = DIK_COMMA;
 	s_KeyMapping[Key::Key_Period] = DIK_PERIOD;
 	s_KeyMapping[Key::Key_Slash] = DIK_SLASH;
-
 	s_KeyMapping[Key::Key_Up] = DIK_UP;
 	s_KeyMapping[Key::Key_Down] = DIK_DOWN;
 	s_KeyMapping[Key::Key_Left] = DIK_LEFT;
 	s_KeyMapping[Key::Key_Right] = DIK_RIGHT;
-
 	s_KeyMapping[Key::Key_PageUp] = DIK_PGUP;
 	s_KeyMapping[Key::Key_PageDown] = DIK_PGDN;
 	s_KeyMapping[Key::Key_End] = DIK_END;
-
 	s_KeyMapping[Key::Key_SysRq] = DIK_SYSRQ;
 	s_KeyMapping[Key::Key_Pause] = DIK_PAUSE;
 	s_KeyMapping[Key::Key_Home] = DIK_HOME;

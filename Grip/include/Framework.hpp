@@ -16,7 +16,7 @@ class Framework
 	typedef std::chrono::time_point<Clock, MilliSeconds> TimePoint;
 
 public:
-	Framework(IGame* pGame, HINSTANCE hInstance, HWND hWnd);
+	Framework(HINSTANCE hInstance, HWND hWnd);
 	~Framework();
 
 	void SetMaxFps(std::uint32_t fps) { m_frameTime = Seconds(1.0 / fps); }
@@ -26,12 +26,14 @@ public:
 	std::uint32_t GetFps() const { return m_fps; }
 	std::uint32_t GetDrawFps() const { return m_drawFps; }
 	IInput* GetInput() { return m_pInput; }
+	HWND GetHWND() const { return m_hWnd; }
 
 	bool IsExit() const;
 	bool Update();
 	void Draw();
 
 private:
+	HWND m_hWnd;
 	IGame* m_pGame;
 	IInput* m_pInput;;
 	MilliSeconds m_frameTime;

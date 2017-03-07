@@ -6,7 +6,7 @@
 #include <thread>
 #include <Grip.hpp>
 #include <sstream>
-#include "GameSample.h"
+#include "GameSample.hpp"
 
 
 #define UNUSED(x)
@@ -190,7 +190,7 @@ LRESULT APIENTRY WindowProcedure(
 	return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
 
-
+GRIP_GAME_ENTRY(GameSample);
 
 int APIENTRY _tWinMain(
 	HINSTANCE hInstance,
@@ -205,8 +205,8 @@ int APIENTRY _tWinMain(
 	}
 
 	MSG msg = { 0 };
-	GameSample sample;
-	Grip::Framework framework(&sample, ::GetModuleHandle(nullptr), g_hWnd);
+
+	Grip::Framework framework(::GetModuleHandle(nullptr), g_hWnd);
 	while (true)
 	{
 		while (::PeekMessage(&msg, hWnd, 0, 0, PM_NOREMOVE) != 0)

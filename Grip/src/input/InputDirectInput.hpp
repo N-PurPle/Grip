@@ -41,6 +41,7 @@ private:
 	std::vector<IGamePad*>  m_GamePad;
 };
 
+
 class KeyboardDirectInput : public IKeyboard
 {
 public:
@@ -72,6 +73,7 @@ private:
 	static std::uint8_t  s_KeyMapping[Key::Key_Num];
 };
 
+
 class MouseDirectInput : public IMouse
 {
 public:
@@ -102,6 +104,7 @@ private:
 	double               m_PressedDurations[MouseButton::MouseButton_Num];
 	std::int32_t         m_Axes[MouseAxis::MouseAxis_Num];
 };
+
 
 class GamePadDirectInput : public IGamePad
 {

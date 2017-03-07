@@ -16,5 +16,7 @@
 #include "Game.hpp"
 #include "Framework.hpp"
 #include "Input.hpp"
+#include "Graphics.hpp"
+#include "Timer.hpp"
 
 

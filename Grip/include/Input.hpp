@@ -135,6 +135,7 @@ enum Key : std::uint8_t
 	Key_Num,
 };
 
+
 enum MouseButton : std::uint8_t
 {
 	MouseButton_0 = 0,
@@ -147,6 +148,8 @@ enum MouseButton : std::uint8_t
 	MouseButton_7,
 	MouseButton_Num,
 };
+
+
 enum MouseAxis : std::uint8_t
 {
 	MouseAxis_X = 0,
@@ -154,6 +157,57 @@ enum MouseAxis : std::uint8_t
 	MouseAxis_Scroll,
 	MouseAxis_Num,
 };
+
+
+enum AnalogInput : std::uint8_t
+{
+	AnalogInput_LeftThumbStickX = 0,
+	AnalogInput_LeftThumbStickY,
+	AnalogInput_RightThumbStickX,
+	AnalogInput_RightThumbStickY,
+	AnalogInput_LeftTrigger,
+	AnalogInput_RightTrigger,
+	AnalogInput_Num,
+};
+
+
+enum GamePadButton : std::uint8_t
+{
+	GamePadButton_0 = 0,
+	GamePadButton_1,
+	GamePadButton_2,
+	GamePadButton_3,
+	GamePadButton_4,
+	GamePadButton_5,
+	GamePadButton_6,
+	GamePadButton_7,
+	GamePadButton_8,
+	GamePadButton_9,
+	GamePadButton_10,
+	GamePadButton_11,
+	GamePadButton_12,
+	GamePadButton_13,
+	GamePadButton_14,
+	GamePadButton_Num,
+};
+
+
+enum POV : std::uint8_t
+{
+	POV_0 = 0,
+	POV_1,
+	POV_2,
+	POV_3,
+	POV_4,
+	POV_5,
+	POV_6,
+	POV_7,
+	POV_8,
+	POV_Num
+};
+
+
+
 struct IKeyboard
 {
 	virtual ~IKeyboard() = default;
@@ -172,6 +226,8 @@ struct IKeyboard
 
 	virtual double GetDurationPressed(Key key) const = 0;
 };
+
+
 struct IMouse
 {
 	virtual ~IMouse() = default;
@@ -192,48 +248,8 @@ struct IMouse
 
 	virtual std::int32_t GetAxisValue(MouseAxis axis) const = 0;
 };
-enum AnalogInput : std::uint8_t
-{
-	AnalogInput_LeftThumbStickX = 0,
-	AnalogInput_LeftThumbStickY,
-	AnalogInput_RightThumbStickX,
-	AnalogInput_RightThumbStickY,
-	AnalogInput_LeftTrigger,
-	AnalogInput_RightTrigger,
-	AnalogInput_Num,
-};
-enum GamePadButton : std::uint8_t
-{
-	GamePadButton_0 = 0,
-	GamePadButton_1,
-	GamePadButton_2,
-	GamePadButton_3,
-	GamePadButton_4,
-	GamePadButton_5,
-	GamePadButton_6,
-	GamePadButton_7,
-	GamePadButton_8,
-	GamePadButton_9,
-	GamePadButton_10,
-	GamePadButton_11,
-	GamePadButton_12,
-	GamePadButton_13,
-	GamePadButton_14,
-	GamePadButton_Num,
-};
-enum POV : std::uint8_t
-{
-	POV_0 = 0,
-	POV_1,
-	POV_2,
-	POV_3,
-	POV_4,
-	POV_5,
-	POV_6,
-	POV_7,
-	POV_8,
-	POV_Num
-};
+
+
 struct IGamePad
 {
 	virtual ~IGamePad() = default;
@@ -259,6 +275,8 @@ struct IGamePad
 
 	virtual double GetStickValue(AnalogInput analog) const = 0;
 };
+
+
 struct IInput
 {
 	virtual ~IInput() = default;
@@ -272,7 +290,9 @@ struct IInput
 	virtual IGamePad*  GetJoyStick(std::uint8_t index) = 0;
 };
 
+
 IInput* CreateInput(HINSTANCE hInstance, HWND hWnd);
+
 
 } // namespace Grip
 
