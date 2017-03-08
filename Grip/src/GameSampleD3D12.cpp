@@ -1,4 +1,4 @@
-﻿#include "GameSample.hpp"
+﻿#include "GameSampleD3D12.hpp"
 
 #include <vector>
 #include <map>
@@ -277,7 +277,7 @@ void D3D12Shutdown()
 
 
 // 描画開始
-void BeginDraw()
+void D3D12BeginDraw()
 {
 	HRESULT hr;
 
@@ -314,7 +314,7 @@ void BeginDraw()
 }
 
 // 描画終了
-void EndDraw()
+void D3D12EndDraw()
 {
 	// バックバッファの描画完了を待つためのバリアを設置
 	D3D12_RESOURCE_BARRIER barrier;
@@ -332,7 +332,7 @@ void EndDraw()
 
 
 // コマンド実行 と Present
-void Present()
+void D3D12Present()
 {
 	// コマンドリストを実行する
 	ID3D12CommandList* ppD3D12CommandLists[] = { g_pD3D12GraphicsCommandList };
@@ -344,7 +344,7 @@ void Present()
 
 
 // 描画完了を待つ
-void WaitDrawDone()
+void D3D12WaitDrawDone()
 {
 	// 現在のFence値がコマンド終了後にFenceに書き込まれるようにする
 	UINT64 fvalue = g_iFenceValue;
@@ -364,13 +364,14 @@ void WaitDrawDone()
 }
 
 
-GameSample::GameSample()
+GameSampleD3D12::GameSampleD3D12()
 	: m_pFramework(nullptr)
 	, m_pKeyboard(nullptr)
+	, m_Counter(0)
 {}
 
 
-void GameSample::Startup(Grip::Framework* pFramework)
+void GameSampleD3D12::Startup(Grip::Framework* pFramework)
 {
 	m_pFramework = pFramework;
 	m_pKeyboard = m_pFramework->GetInput()->GetKeyboard(0);
@@ -379,14 +380,14 @@ void GameSample::Startup(Grip::Framework* pFramework)
 }
 
 
-void GameSample::Shutdown()
+void GameSampleD3D12::Shutdown()
 {
 	m_pFramework = nullptr;
 	D3D12Shutdown();
 }
 
 
-void GameSample::Update(double)
+void GameSampleD3D12::Update(double)
 {
 	if (m_pFramework)
 	{
@@ -404,23 +405,23 @@ void GameSample::Update(double)
 }
 
 
-void GameSample::RenderScene()
+void GameSampleD3D12::RenderScene()
 {
-	BeginDraw();
+	D3D12BeginDraw();
 
-	EndDraw();
-	Present();
-	WaitDrawDone();
+	D3D12EndDraw();
+	D3D12Present();
+	D3D12WaitDrawDone();
 }
 
 
-void GameSample::RenderUI()
+void GameSampleD3D12::RenderUI()
 {
 
 }
 
 
-bool GameSample::IsExit() const
+bool GameSampleD3D12::IsExit() const
 {
 	if (m_pKeyboard && m_pKeyboard->IsFirstPressed(Grip::Key_Escape))
 	{

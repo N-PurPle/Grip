@@ -6,10 +6,9 @@
 #include <thread>
 #include <Grip.hpp>
 #include <sstream>
-#include "GameSample.hpp"
+#include "GameSampleD3D12.hpp"
+#include "GameSampleVulkan.hpp"
 
-
-#define UNUSED(x)
 
 
 int g_iX = 0;
@@ -190,12 +189,17 @@ LRESULT APIENTRY WindowProcedure(
 	return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
 
-GRIP_GAME_ENTRY(GameSample);
+
+
+GRIP_GAME_ENTRY(GameSampleD3D12);
+//GRIP_GAME_ENTRY(GameSampleVulkan);
+
+
 
 int APIENTRY _tWinMain(
 	HINSTANCE hInstance,
-	HINSTANCE UNUSED(hPrevInstance),
-	LPTSTR    UNUSED(lpCmdLine),
+	HINSTANCE GRIP_UNUSED(hPrevInstance),
+	LPTSTR    GRIP_UNUSED(lpCmdLine),
 	int       nCmdShow
 )
 {

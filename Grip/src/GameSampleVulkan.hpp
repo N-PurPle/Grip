@@ -4,10 +4,10 @@
 #include <sstream>
 
 
-class GameSample : public Grip::IGame
+class GameSampleVulkan : public Grip::IGame
 {
 public:
-	GameSample();
+	GameSampleVulkan();
 
 	void Startup(Grip::Framework* pFramework) override;
 

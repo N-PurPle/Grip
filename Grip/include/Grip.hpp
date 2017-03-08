@@ -12,7 +12,7 @@
 #pragma warning( pop ) 
 
 
-
+#include "Utility.hpp"
 #include "Game.hpp"
 #include "Framework.hpp"
 #include "Input.hpp"

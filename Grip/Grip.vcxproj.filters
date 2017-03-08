@@ -8,13 +8,16 @@
     <ClInclude Include="include\Timer.hpp" />
     <ClInclude Include="src\input\InputDirectInput.hpp" />
     <ClInclude Include="include\Graphics.hpp" />
-    <ClInclude Include="src\GameSample.hpp" />
+    <ClInclude Include="src\GameSampleVulkan.hpp" />
+    <ClInclude Include="src\GameSampleD3D12.hpp" />
+    <ClInclude Include="include\Utility.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\input\InputDirectInput.cpp" />
-    <ClCompile Include="src\GameSample.cpp" />
+    <ClCompile Include="src\GameSampleVulkan.cpp" />
+    <ClCompile Include="src\GameSampleD3D12.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc" />

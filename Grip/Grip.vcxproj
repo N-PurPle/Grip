@@ -25,12 +25,15 @@
     <ClInclude Include="include\Grip.hpp" />
     <ClInclude Include="include\Input.hpp" />
     <ClInclude Include="include\Timer.hpp" />
-    <ClInclude Include="src\GameSample.hpp" />
+    <ClInclude Include="include\Utility.hpp" />
+    <ClInclude Include="src\GameSampleD3D12.hpp" />
+    <ClInclude Include="src\GameSampleVulkan.hpp" />
     <ClInclude Include="src\input\InputDirectInput.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework.cpp" />
-    <ClCompile Include="src\GameSample.cpp" />
+    <ClCompile Include="src\GameSampleD3D12.cpp" />
+    <ClCompile Include="src\GameSampleVulkan.cpp" />
     <ClCompile Include="src\input\InputDirectInput.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
@@ -91,31 +94,36 @@
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\obj\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(ProjectDir)external\vulkan\;$(VK_SDK_PATH)\Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VK_SDK_PATH)\Source\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\obj\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(ProjectDir)external\vulkan\;$(VK_SDK_PATH)\Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VK_SDK_PATH)\Source\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\obj\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(ProjectDir)external\vulkan\;$(VK_SDK_PATH)\Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VK_SDK_PATH)\Source\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\obj\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\;$(ProjectDir)external\glm\;$(ProjectDir)external\vulkan\;$(VK_SDK_PATH)\Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VK_SDK_PATH)\Source\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,6 +131,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,6 +141,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_NDEBUG</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -145,6 +155,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_NDEBUG</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

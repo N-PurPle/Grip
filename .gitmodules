@@ -1,3 +1,6 @@
 [submodule "Grip/external/glm"]
 	path = Grip/external/glm
 	url = https://github.com/g-truc/glm
+[submodule "Grip/external/vulkan"]
+	path = Grip/external/vulkan
+	url = https://github.com/KhronosGroup/Vulkan-Hpp.git
