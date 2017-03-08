@@ -10,6 +10,8 @@
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
 
+namespace {
+
 typedef std::vector<IDXGIAdapter3*>               IDXGIAdapter3Array;
 typedef std::vector<IDXGIOutput5*>                IDXGIOutput5Array;
 typedef std::map<std::uint8_t, IDXGIOutput5Array> IDXGIOutput5ArrayMap;
@@ -34,16 +36,15 @@ UINT64                     g_iFenceValue = 0;
 HANDLE                     g_pFenceEvent = nullptr;
 
 
-template<typename T>
-void SafeRelease(T*& ptr)
-{
-	if (ptr != nullptr)
-	{
-		ptr->Release();
-		ptr = nullptr;
-	}
-}
+constexpr UINT kScreenWidth = 1280;
+constexpr UINT kScreenHeight = 720;
 
+} // unnamed namespace
+
+using namespace Grip;
+
+
+// 初期化
 bool D3D12Startup(HWND hWnd, bool enableDebug)
 {
 	// デバッグレイヤーを有効化
@@ -187,8 +188,8 @@ bool D3D12Startup(HWND hWnd, bool enableDebug)
 	{
 		DXGI_SWAP_CHAIN_DESC desc = {};
 		desc.BufferCount = 2;   // フレームバッファとバックバッファで2枚
-		desc.BufferDesc.Width = 1280;
-		desc.BufferDesc.Height = 720;
+		desc.BufferDesc.Width = kScreenWidth;
+		desc.BufferDesc.Height = kScreenHeight;
 		desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
@@ -247,6 +248,7 @@ bool D3D12Startup(HWND hWnd, bool enableDebug)
 }
 
 
+// 解放
 void D3D12Shutdown()
 {
 	for (auto& pDXGIOutputPair : g_apDXGIOutputs)
@@ -312,6 +314,14 @@ void D3D12BeginDraw()
 	const float kClearColor[] = { 0.0f, 0.0f, 0.6f, 1.0f };
 	g_pD3D12GraphicsCommandList->ClearRenderTargetView(handle, kClearColor, 0, nullptr);
 }
+
+
+// 描画
+void D3D12DrawScene()
+{
+
+}
+
 
 // 描画終了
 void D3D12EndDraw()
@@ -408,7 +418,7 @@ void GameSampleD3D12::Update(double)
 void GameSampleD3D12::RenderScene()
 {
 	D3D12BeginDraw();
-
+	D3D12DrawScene();
 	D3D12EndDraw();
 	D3D12Present();
 	D3D12WaitDrawDone();

@@ -6,6 +6,7 @@
 #include <thread>
 #include <Grip.hpp>
 #include <sstream>
+#include "GameSampleD3D11.hpp"
 #include "GameSampleD3D12.hpp"
 #include "GameSampleVulkan.hpp"
 
@@ -191,7 +192,8 @@ LRESULT APIENTRY WindowProcedure(
 
 
 
-GRIP_GAME_ENTRY(GameSampleD3D12);
+GRIP_GAME_ENTRY(GameSampleD3D11);
+//GRIP_GAME_ENTRY(GameSampleD3D12);
 //GRIP_GAME_ENTRY(GameSampleVulkan);
 
 

@@ -11,6 +11,7 @@
 
 #pragma comment(lib,"vulkan-1.lib")
 
+namespace {
 
 vk::Instance                    g_VkInstance;
 std::vector<vk::PhysicalDevice> g_aVkPhysicalDevice;
@@ -29,10 +30,12 @@ PFN_vkDebugReportMessageEXT			g_fDebugBreakCallback = VK_NULL_HANDLE;
 VkDebugReportCallbackEXT			g_fMsgCallback;
 
 
-static const int            kScreenWidth = 1280;
-static const int            kScreenHeight = 720;
-static const uint64_t       kFenceTimeout = 100000000000;
-static const std::uint32_t  kQueueIndexNotFound = 0xffffffff;
+constexpr int            kScreenWidth = 1280;
+constexpr int            kScreenHeight = 720;
+constexpr uint64_t       kFenceTimeout = 100000000000;
+constexpr std::uint32_t  kQueueIndexNotFound = 0xffffffff;
+
+} // unnamed namespace
 
 
 std::uint32_t FindQueue(vk::QueueFlags queueFlag, const vk::SurfaceKHR& surface = vk::SurfaceKHR())
