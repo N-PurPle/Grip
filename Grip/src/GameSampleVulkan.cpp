@@ -1,4 +1,6 @@
 ﻿#include "GameSampleVulkan.hpp"
+#include <Utility.hpp>
+
 
 #define VK_USE_PLATFORM_WIN32_KHR
 #define VULKAN_HPP_INLINE inline
@@ -36,6 +38,9 @@ constexpr uint64_t       kFenceTimeout = 100000000000;
 constexpr std::uint32_t  kQueueIndexNotFound = 0xffffffff;
 
 } // unnamed namespace
+
+
+using namespace Grip;
 
 
 std::uint32_t FindQueue(vk::QueueFlags queueFlag, const vk::SurfaceKHR& surface = vk::SurfaceKHR())
@@ -721,7 +726,7 @@ GameSampleVulkan::GameSampleVulkan()
 void GameSampleVulkan::Startup(Grip::Framework* pFramework)
 {
 	m_pFramework = pFramework;
-	m_pKeyboard = m_pFramework->GetInput()->GetKeyboard(0);
+	m_pFramework->GetInput()->CreateKeyboard(0, &m_pKeyboard);
 	bool result = VulkanStartup(m_pFramework->GetHWND(), true);
 	result = result && g_VkSwapchain.Initialize(::GetModuleHandle(nullptr), m_pFramework->GetHWND());
 	result = result && g_VkSwapchain.InitializeSwapchain(kScreenWidth, kScreenHeight, false);
@@ -733,14 +738,20 @@ void GameSampleVulkan::Startup(Grip::Framework* pFramework)
 void GameSampleVulkan::Shutdown()
 {
 	m_pFramework = nullptr;
+	SafeRelease(m_pKeyboard);
 	g_VkSwapchain.Destroy();
 	VulkanDestroyRenderSettings();
 	VulkanShutdown();
 }
 
 
-void GameSampleVulkan::Update(double)
+void GameSampleVulkan::Update(double deltaTime)
 {
+	if (m_pKeyboard)
+	{
+		m_pKeyboard->Update(deltaTime);
+	}
+
 	if (m_pFramework)
 	{
 		++m_Counter;
@@ -775,7 +786,7 @@ void GameSampleVulkan::RenderUI()
 
 bool GameSampleVulkan::IsExit() const
 {
-	if (m_pKeyboard && m_pKeyboard->IsFirstPressed(Grip::Key_Escape))
+	if (m_pKeyboard && m_pKeyboard->IsFirstPressed(Grip::Input::Key_Escape))
 	{
 		return true;
 	}

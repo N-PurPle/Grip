@@ -29,14 +29,22 @@
     <ClInclude Include="src\GameSampleD3D11.hpp" />
     <ClInclude Include="src\GameSampleD3D12.hpp" />
     <ClInclude Include="src\GameSampleVulkan.hpp" />
+    <ClInclude Include="src\input\DirectInput.hpp" />
+    <ClInclude Include="src\input\GamePadDirectInput.hpp" />
     <ClInclude Include="src\input\InputDirectInput.hpp" />
+    <ClInclude Include="src\input\KeyboardDirectInput.hpp" />
+    <ClInclude Include="src\input\MouseDirectInput.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework.cpp" />
     <ClCompile Include="src\GameSampleD3D11.cpp" />
     <ClCompile Include="src\GameSampleD3D12.cpp" />
     <ClCompile Include="src\GameSampleVulkan.cpp" />
+    <ClCompile Include="src\input\DirectInput.cpp" />
+    <ClCompile Include="src\input\GamePadDirectInput.cpp" />
     <ClCompile Include="src\input\InputDirectInput.cpp" />
+    <ClCompile Include="src\input\KeyboardDirectInput.cpp" />
+    <ClCompile Include="src\input\MouseDirectInput.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>

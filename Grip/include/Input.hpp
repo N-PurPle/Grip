@@ -5,12 +5,12 @@
 
 
 namespace Grip {
-
+namespace Input {
 
 enum InputState : bool
 {
 	InputState_Released = false,
-	InputState_Pressed  = true,
+	InputState_Pressed = true,
 };
 
 
@@ -207,8 +207,30 @@ enum POV : std::uint8_t
 };
 
 
+struct IInput;
 
-struct IKeyboard
+
+struct IReference
+{
+	virtual ~IReference() = default;
+
+	virtual void AddRef() = 0;
+
+	virtual void Release() = 0;
+
+	virtual std::uint32_t GetCount() const = 0;
+};
+
+
+struct IInputChild : public IReference
+{
+	virtual ~IInputChild() = default;
+
+	virtual void GetInput(IInput** ppInput) = 0;
+};
+
+
+struct IKeyboard : public IInputChild
 {
 	virtual ~IKeyboard() = default;
 
@@ -228,7 +250,7 @@ struct IKeyboard
 };
 
 
-struct IMouse
+struct IMouse : public IInputChild
 {
 	virtual ~IMouse() = default;
 
@@ -250,7 +272,7 @@ struct IMouse
 };
 
 
-struct IGamePad
+struct IGamePad : public IInputChild
 {
 	virtual ~IGamePad() = default;
 
@@ -277,23 +299,22 @@ struct IGamePad
 };
 
 
-struct IInput
+struct IInput : public IReference
 {
 	virtual ~IInput() = default;
 
-	virtual void Update(double deltaTime) = 0;
+	virtual bool CreateKeyboard(std::uint8_t index, IKeyboard** ppKeyboard) = 0;
 
-	virtual IKeyboard* GetKeyboard(std::uint8_t index) = 0;
+	virtual bool CreateMouse(std::uint8_t index, IMouse** ppMouse) = 0;
 
-	virtual IMouse*    GetMouse(std::uint8_t index) = 0;
-
-	virtual IGamePad*  GetJoyStick(std::uint8_t index) = 0;
+	virtual bool CreateGamePad(std::uint8_t index, IGamePad** ppGamePad) = 0;
 };
 
 
-IInput* CreateInput(HINSTANCE hInstance, HWND hWnd);
+bool CreateInput(HINSTANCE hInstance, HWND hWnd, IInput** ppInput);
 
 
+} // namespace Input
 } // namespace Grip
 
 

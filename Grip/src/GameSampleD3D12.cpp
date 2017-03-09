@@ -384,7 +384,7 @@ GameSampleD3D12::GameSampleD3D12()
 void GameSampleD3D12::Startup(Grip::Framework* pFramework)
 {
 	m_pFramework = pFramework;
-	m_pKeyboard = m_pFramework->GetInput()->GetKeyboard(0);
+	m_pFramework->GetInput()->CreateKeyboard(0, &m_pKeyboard);
 	bool result = D3D12Startup(m_pFramework->GetHWND(), true);
 	OutputDebugStringA(result ? "Succeeded\n" : "Failed\n");
 }
@@ -393,12 +393,18 @@ void GameSampleD3D12::Startup(Grip::Framework* pFramework)
 void GameSampleD3D12::Shutdown()
 {
 	m_pFramework = nullptr;
+	SafeRelease(m_pKeyboard);
 	D3D12Shutdown();
 }
 
 
-void GameSampleD3D12::Update(double)
+void GameSampleD3D12::Update(double deltaTime)
 {
+	if (m_pKeyboard)
+	{
+		m_pKeyboard->Update(deltaTime);
+	}
+
 	if (m_pFramework)
 	{
 		++m_Counter;
@@ -433,7 +439,7 @@ void GameSampleD3D12::RenderUI()
 
 bool GameSampleD3D12::IsExit() const
 {
-	if (m_pKeyboard && m_pKeyboard->IsFirstPressed(Grip::Key_Escape))
+	if (m_pKeyboard && m_pKeyboard->IsFirstPressed(Grip::Input::Key_Escape))
 	{
 		return true;
 	}

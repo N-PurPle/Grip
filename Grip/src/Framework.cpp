@@ -1,6 +1,7 @@
 ﻿#include <Framework.hpp>
 #include <Game.hpp>
 #include <Input.hpp>
+#include <Utility.hpp>
 
 
 namespace Grip {
@@ -23,7 +24,8 @@ Framework::Framework(HINSTANCE hInstance, HWND hWnd)
 {
 	m_targetTimePoint = Clock::now();
 	SetMaxFps(60);
-	m_pInput = CreateInput(hInstance, hWnd);
+	
+	Input::CreateInput(hInstance, hWnd, &m_pInput);
 
 	m_pGame = CreateGame();
 	if (m_pGame)
@@ -35,6 +37,7 @@ Framework::Framework(HINSTANCE hInstance, HWND hWnd)
 
 Framework::~Framework()
 {
+	SafeRelease(m_pInput);
 	if (m_pGame)
 	{
 		m_pGame->Shutdown();
@@ -92,12 +95,6 @@ bool Framework::Update()
 	++m_totalFrameCounter;
 
 	double frameDeltaTime = m_frameTime.count();
-
-	// 入力更新
-	if (m_pInput)
-	{
-		m_pInput->Update(frameDeltaTime);
-	}
 
 	// ゲーム更新処理
 	if (m_pGame)

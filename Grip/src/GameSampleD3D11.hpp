@@ -23,7 +23,7 @@ public:
 
 private:
 	Grip::Framework* m_pFramework;
-	Grip::IKeyboard* m_pKeyboard;
+	Grip::Input::IKeyboard* m_pKeyboard;
 	std::uint32_t    m_Counter;
 };
 

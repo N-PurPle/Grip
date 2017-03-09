@@ -7,7 +7,10 @@
 namespace Grip {
 
 struct IGame;
+namespace Input {
 struct IInput;
+}
+
 class Framework
 {
 	typedef std::chrono::duration<double, std::milli>    MilliSeconds;
@@ -25,7 +28,7 @@ public:
 
 	std::uint32_t GetFps() const { return m_fps; }
 	std::uint32_t GetDrawFps() const { return m_drawFps; }
-	IInput* GetInput() { return m_pInput; }
+	Input::IInput* GetInput() { return m_pInput; }
 	HWND GetHWND() const { return m_hWnd; }
 
 	bool IsExit() const;
@@ -35,7 +38,7 @@ public:
 private:
 	HWND m_hWnd;
 	IGame* m_pGame;
-	IInput* m_pInput;;
+	Input::IInput* m_pInput;;
 	MilliSeconds m_frameTime;
 	TimePoint m_targetTimePoint;
 	TimePoint m_secondCounter;

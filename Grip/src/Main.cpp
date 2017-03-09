@@ -9,7 +9,7 @@
 #include "GameSampleD3D11.hpp"
 #include "GameSampleD3D12.hpp"
 #include "GameSampleVulkan.hpp"
-
+#include <crtdbg.h>
 
 
 int g_iX = 0;
@@ -68,7 +68,7 @@ HWND Initialize(HINSTANCE hInstance, int nCmdShow, WNDPROC lpWndProc)
 		windowClassStyle |= CS_OWNDC;
 	}
 
-	if (g_hIcon == nullptr)
+	if (!g_hIcon)
 	{
 		g_hIcon = reinterpret_cast<HICON>(::LoadImage(
 			hInstance,
@@ -79,7 +79,7 @@ HWND Initialize(HINSTANCE hInstance, int nCmdShow, WNDPROC lpWndProc)
 			LR_DEFAULTSIZE | LR_SHARED));
 	}
 
-	if (g_hIconSmall == nullptr)
+	if (!g_hIconSmall)
 	{
 		g_hIconSmall = reinterpret_cast<HICON>(::LoadImage(
 			hInstance,
@@ -90,7 +90,7 @@ HWND Initialize(HINSTANCE hInstance, int nCmdShow, WNDPROC lpWndProc)
 			LR_DEFAULTSIZE | LR_SHARED));
 	}
 
-	if (g_hCursor == nullptr)
+	if (!g_hCursor)
 	{
 		g_hCursor = reinterpret_cast<HCURSOR>(::LoadImage(
 			hInstance,
@@ -138,7 +138,7 @@ HWND Initialize(HINSTANCE hInstance, int nCmdShow, WNDPROC lpWndProc)
 		hInstance,
 		nullptr);
 
-	if (g_hWnd == nullptr)
+	if (!g_hWnd)
 	{
 		return nullptr;
 	}
@@ -192,8 +192,8 @@ LRESULT APIENTRY WindowProcedure(
 
 
 
-GRIP_GAME_ENTRY(GameSampleD3D11);
-//GRIP_GAME_ENTRY(GameSampleD3D12);
+//GRIP_GAME_ENTRY(GameSampleD3D11);
+GRIP_GAME_ENTRY(GameSampleD3D12);
 //GRIP_GAME_ENTRY(GameSampleVulkan);
 
 
@@ -205,8 +205,11 @@ int APIENTRY _tWinMain(
 	int       nCmdShow
 )
 {
+	// メモリリーク検出
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	HWND hWnd = Initialize(hInstance, nCmdShow, WindowProcedure);
-	if (hWnd == nullptr) {
+	if (!hWnd) {
 		return 0;
 	}
 

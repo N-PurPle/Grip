@@ -1,28 +1,32 @@
 ﻿#pragma once
+
 #include <Input.hpp>
-#define DIRECTINPUT_VERSION  0x0800
-#include <dinput.h>
+#include "DirectInput.hpp"
 #include <vector>
-#include <Windows.h>
+#include <atomic>
+#include <cstdint>
 
 
 namespace Grip {
+namespace Input {
 
 
 class InputDirectInput : public IInput
 {
 public:
-	InputDirectInput(HINSTANCE hInstance, HWND hWnd);
+	static bool   Create(HINSTANCE hInstance, HWND hWnd, IInput** ppInput);
 
-	~InputDirectInput();
+	bool          CreateKeyboard(std::uint8_t index, IKeyboard** ppKeyboard);
 
-	void Update(double deltaTime) override;
+	bool          CreateMouse(std::uint8_t index, IMouse** ppMouse);
 
-	IKeyboard* GetKeyboard(std::uint8_t index) override;
+	bool          CreateGamePad(std::uint8_t index, IGamePad** ppGamePad);
 
-	IMouse*    GetMouse(std::uint8_t index) override;
+	void          AddRef() override;
 
-	IGamePad*  GetJoyStick(std::uint8_t index) override;
+	void          Release() override;
+	
+	std::uint32_t GetCount() const override;
 
 private:
 	static BOOL CALLBACK EnumAndCreateKeyboard(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef);
@@ -34,121 +38,24 @@ private:
 	static BOOL CALLBACK EnumAndSettingAxesCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
 
 private:
-	LPDIRECTINPUT8          m_pInput;
-	HWND                    m_hWnd;
-	std::vector<IKeyboard*> m_Keyboard;
-	std::vector<IMouse*>    m_Mouse;
-	std::vector<IGamePad*>  m_GamePad;
-};
+	InputDirectInput();
 
+	~InputDirectInput();
 
-class KeyboardDirectInput : public IKeyboard
-{
-public:
-	KeyboardDirectInput(LPDIRECTINPUTDEVICE8 pDevice, HWND hWnd);
+	bool Initialize(HINSTANCE hInstance, HWND hWnd);
 
-	~KeyboardDirectInput();
-
-	static void BuildKeyMapping();
-
-	void Update(double deltaTime) override;
-
-	bool IsAnyPressed() const override;
-
-	bool IsPressed(Key key) const override;
-
-	bool IsReleased(Key key) const override;
-
-	bool IsFirstPressed(Key key) const override;
-
-	bool IsFirstReleased(Key key) const override;
-
-	double GetDurationPressed(Key key) const override;
+	void Terminate();
 
 private:
-	LPDIRECTINPUTDEVICE8 m_pDevice;
-	HWND                 m_hWnd;
-	InputState           m_States[2][Key::Key_Num];
-	double               m_PressedDurations[Key::Key_Num];
-	static std::uint8_t  s_KeyMapping[Key::Key_Num];
+	std::atomic<std::uint32_t>        m_RefCount;
+	LPDIRECTINPUT8                    m_pInput;
+	HWND                              m_hWnd;
+	std::vector<LPDIRECTINPUTDEVICE8> m_pKeyboardDevices;
+	std::vector<LPDIRECTINPUTDEVICE8> m_pMouseDevices;
+	std::vector<LPDIRECTINPUTDEVICE8> m_pGamePadDevices;
 };
 
 
-class MouseDirectInput : public IMouse
-{
-public:
-	MouseDirectInput(LPDIRECTINPUTDEVICE8 pDevice, HWND hWnd);
-
-	~MouseDirectInput();
-
-	void Update(double deltaTime) override;
-
-	bool IsAnyPressed() const override;
-
-	bool IsPressed(MouseButton button) const override;
-
-	bool IsReleased(MouseButton button) const override;
-
-	bool IsFirstPressed(MouseButton button) const override;
-
-	bool IsFirstReleased(MouseButton button) const override;
-
-	double GetDurationPressed(MouseButton button) const override;
-
-	std::int32_t GetAxisValue(MouseAxis axis) const override;
-
-private:
-	LPDIRECTINPUTDEVICE8 m_pDevice;
-	HWND                 m_hWnd;
-	InputState           m_States[2][MouseButton::MouseButton_Num];
-	double               m_PressedDurations[MouseButton::MouseButton_Num];
-	std::int32_t         m_Axes[MouseAxis::MouseAxis_Num];
-};
-
-
-class GamePadDirectInput : public IGamePad
-{
-public:
-	GamePadDirectInput(LPDIRECTINPUTDEVICE8 pDevice);
-
-	~GamePadDirectInput();
-
-	void Update(double deltaTime) override;
-
-	bool IsAnyPressed() const override;
-
-	bool IsPressed(GamePadButton button) const override;
-	bool IsPressed(POV pov) const override;
-
-	bool IsReleased(GamePadButton button) const override;
-	bool IsReleased(POV pov) const override;
-
-	bool IsFirstPressed(GamePadButton button) const override;
-	bool IsFirstPressed(POV pov) const override;
-
-	bool IsFirstReleased(GamePadButton button) const override;
-	bool IsFirstReleased(POV pov) const override;
-
-	double GetDurationPressed(GamePadButton button) const override;
-	double GetDurationPressed(POV pov) const override;
-
-	double GetStickValue(AnalogInput analog) const override;
-
-private:
-	LPDIRECTINPUTDEVICE8 m_pDevice;
-	double               m_Analogs[AnalogInput::AnalogInput_Num]; // -1.0 ~ 1.0
-	InputState           m_States[2][GamePadButton::GamePadButton_Num + POV::POV_Num];
-	double               m_PressedDurations[GamePadButton::GamePadButton_Num + POV::POV_Num];
-};
-
-
-
-
-
-
-
-
+} // namespace Input
 } // namespace Grip
-
-
 
