@@ -211,14 +211,14 @@ void KeyboardDirectInput::Update(double deltaTime)
 {
 	if (!m_pDevice) { return; }
 
-	HRESULT hr = m_pDevice->Acquire();
-	if (hr != DI_OK && hr != S_FALSE) { return; }
-	m_pDevice->Poll();
-
 	HWND foreground = ::GetForegroundWindow();
 	bool isWindowVisible = ::IsWindowVisible(m_hWnd) != 0;
 
 	if (foreground != m_hWnd || !isWindowVisible) { return; }
+
+	HRESULT hr = m_pDevice->Acquire();
+	if (hr != DI_OK && hr != S_FALSE) { return; }
+	m_pDevice->Poll();
 
 	std::uint8_t keyBuffer[256] = { 0 };
 	hr = m_pDevice->GetDeviceState(sizeof(keyBuffer), keyBuffer);

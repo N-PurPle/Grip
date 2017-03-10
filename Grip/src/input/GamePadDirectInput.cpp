@@ -102,6 +102,11 @@ void GamePadDirectInput::Update(double deltaTime)
 {
 	if (!m_pDevice) { return; }
 
+	HWND foreground = ::GetForegroundWindow();
+	bool isWindowVisible = ::IsWindowVisible(m_hWnd) != 0;
+
+	if (foreground != m_hWnd || !isWindowVisible) { return; }
+
 	HRESULT hr = m_pDevice->Acquire();
 	if (hr != DI_OK && hr != S_FALSE) { return; }
 	m_pDevice->Poll();
